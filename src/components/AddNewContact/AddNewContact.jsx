@@ -1,5 +1,6 @@
-import { nanoid } from "nanoid";
-import { Component } from "react";
+import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+import { Component } from 'react';
 
 export default class AddNewContact extends Component {
   nameInputId = nanoid();
@@ -18,9 +19,8 @@ export default class AddNewContact extends Component {
   formSubmitHeandler = event => {
     event.preventDefault();
     this.props.onFormSubmit(this.state);
-    this.setState({name:'', number: ''});
-  }
-
+    this.setState({ name: '', number: '' });
+  };
 
   render() {
     return (
@@ -53,3 +53,7 @@ export default class AddNewContact extends Component {
     );
   }
 }
+
+AddNewContact.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+};

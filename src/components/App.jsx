@@ -19,6 +19,11 @@ export class App extends Component {
   };
 
   handleFormSubmit = ({name, number}) => {
+    const alreadyInContacts = this.state.contacts.find(contact=>contact.name===name)
+    if (alreadyInContacts) {
+      alert(`${alreadyInContacts.name} is already in contacts.`);
+      return
+    }
     const newContact = {
       name,
       number,
@@ -27,11 +32,17 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
+
   };
 
   handleFilterInputChange = event => {
     this.setState({filter: event.target.value})
+  }
 
+  handleDeleteBtnClick = (id) => {
+    this.setState(()=>{
+      return {...this.state, contacts: this.state.contacts.filter(element=>element.id!==id)}
+    })
   }
 
   render() {
@@ -39,13 +50,16 @@ export class App extends Component {
       <>
         <AddNewContact onFormSubmit={this.handleFormSubmit} />
         {this.state.contacts.length > 0 && <h1>Contacts</h1>}
-        <FilterContacts
-          onInputChange={this.handleFilterInputChange}
-          value={this.state.filter}
-        />
+        {this.state.contacts.length > 1 && 
+          <FilterContacts
+            onInputChange={this.handleFilterInputChange}
+            value={this.state.filter}
+          />
+        }
         <ContactsList
           contacts={this.state.contacts}
           filter={this.state.filter}
+          onDeleteBtnClick={this.handleDeleteBtnClick}
         />
       </>
     );
