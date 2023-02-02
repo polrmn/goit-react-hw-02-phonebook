@@ -1,9 +1,9 @@
-import { nanoid } from "nanoid";
-
+import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 
 const FilterContacts = ({ onInputChange, value }) => {
   const filterInputId = nanoid();
-  
+
   return (
     <>
       <label htmlFor={filterInputId}>Find contacts by name</label>
@@ -19,6 +19,11 @@ const FilterContacts = ({ onInputChange, value }) => {
       />
     </>
   );
+};
+
+FilterContacts.propTypes = {
+  onInputChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default FilterContacts;
