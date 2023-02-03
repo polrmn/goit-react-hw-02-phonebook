@@ -45,20 +45,22 @@ export class App extends Component {
     })
   }
 
+  filterContacts = () => this.state.contacts.filter(contact=>contact.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+  
+
   render() {
     return (
       <>
         <AddNewContact onFormSubmit={this.handleFormSubmit} />
         {this.state.contacts.length > 0 && <h1>Contacts</h1>}
-        {this.state.contacts.length > 1 && 
+        {this.state.contacts.length > 1 && (
           <FilterContacts
             onInputChange={this.handleFilterInputChange}
             value={this.state.filter}
           />
-        }
+        )}
         <ContactsList
-          contacts={this.state.contacts}
-          filter={this.state.filter}
+          filterContacts={this.filterContacts()}
           onDeleteBtnClick={this.handleDeleteBtnClick}
         />
       </>
